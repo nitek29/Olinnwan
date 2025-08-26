@@ -1,8 +1,13 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
+'use client';
 
-type Props = Omit<ImageProps, "src"> & {
+import Image, { type ImageProps } from 'next/image';
+import { Button } from '@repo/ui/button';
+import { useTranslation } from '../lib/i18n/i18n-client';
+import LanguageSelector from '../components/i18n/language-selector';
+import styles from './page.module.css';
+import { useEffect, useState } from 'react';
+
+type Props = Omit<ImageProps, 'src'> & {
   srcLight: string;
   srcDark: string;
 };
@@ -19,9 +24,22 @@ const ThemeImage = (props: Props) => {
 };
 
 export default function Home() {
+  const { t, i18n } = useTranslation('common');
+  const [currentLocale, setCurrentLocale] = useState('fr');
+
+  useEffect(() => {
+    if (i18n.language) {
+      setCurrentLocale(i18n.language);
+    }
+  }, [i18n.language]);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+          <LanguageSelector currentLocale={currentLocale} />
+        </div>
+
         <ThemeImage
           className={styles.logo}
           srcLight="turborepo-dark.svg"
@@ -31,6 +49,10 @@ export default function Home() {
           height={38}
           priority
         />
+
+        <h1>{t('welcome')}</h1>
+        <p>{t('description')}</p>
+
         <ol>
           <li>
             Get started by editing <code>apps/web/app/page.tsx</code>
@@ -39,64 +61,9 @@ export default function Home() {
         </ol>
 
         <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.com/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+          <Button appName="web">{t('actions.save')}</Button>
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.com?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.com →
-        </a>
-      </footer>
     </div>
   );
 }
