@@ -7,14 +7,21 @@
     "dev": "next dev --turbopack --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "lint": "eslint . --max-warnings 0 --fix",
+    "check-types": "tsc --noEmit",
+    "i18n:extract": "node scripts/extract-translations.js",
+    "i18n:validate": "node scripts/validate-translations.js"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "i18next": "^25.4.2",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-resources-to-backend": "^1.2.1",
     "next": "^15.5.0",
+    "next-i18next": "^15.4.2",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-i18next": "^15.7.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

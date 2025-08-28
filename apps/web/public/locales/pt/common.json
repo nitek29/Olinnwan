@@ -1,0 +1,21 @@
+{
+  "welcome": "Bem-vindo ao Olinnwan",
+  "description": "Aplicação web moderna para Dofus",
+  "navigation": {
+    "home": "Início",
+    "about": "Sobre",
+    "settings": "Definições"
+  },
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "success": "Sucesso"
+  }
+}

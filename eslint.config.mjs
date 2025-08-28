@@ -5,12 +5,12 @@ import { config as reactConfig } from '@repo/eslint-config/react-internal';
 /** @type {import("eslint").Linter.Config[]} */
 export default [
   ...baseConfig,
-  {
+  ...nextConfig.map(config => ({
+    ...config,
     files: ['apps/web/**/*.ts', 'apps/web/**/*.tsx'],
-    ...nextConfig,
-  },
-  {
+  })),
+  ...reactConfig.map(config => ({
+    ...config,
     files: ['packages/ui/**/*.ts', 'packages/ui/**/*.tsx'],
-    ...reactConfig,
-  },
+  })),
 ];

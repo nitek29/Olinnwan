@@ -1,0 +1,21 @@
+{
+  "welcome": "Welcome to Olinnwan",
+  "description": "Modern web application for Dofus",
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "settings": "Settings"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success"
+  }
+}
