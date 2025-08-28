@@ -13,6 +13,9 @@ node_modules
 .env.production.local
 **/.env*
 
+# Prisma
+/packages/database/prisma/generated
+
 
 # Testing
 coverage
