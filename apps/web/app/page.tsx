@@ -1,69 +1,33 @@
-'use client';
+import { headers, cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { i18n, localeCookieName, Locale } from '../lib/i18n/settings';
 
-import Image, { type ImageProps } from 'next/image';
-import { Button } from '@repo/ui/button';
-import { useTranslation } from '../lib/i18n/i18n-client';
-import LanguageSelector from '../components/i18n/language-selector';
-import styles from './page.module.css';
-import { useEffect, useState } from 'react';
+function isLocale(value: string): value is Locale {
+  return (i18n.locales as readonly string[]).includes(value);
+}
 
-type Props = Omit<ImageProps, 'src'> & {
-  srcLight: string;
-  srcDark: string;
-};
+export default async function RootRedirect() {
+  const hdrs = await headers();
+  const cookieStore = await cookies();
 
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
+  // 1. Cookie
+  const cookieLocale = cookieStore.get(localeCookieName)?.value;
+  if (cookieLocale && isLocale(cookieLocale)) {
+    redirect(`/${cookieLocale}`);
+  }
 
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
+  // 2. Header
+  const accept = hdrs.get('accept-language') || '';
+  const tokens = accept
+    .split(',')
+    .map((p) => p.split(';')[0]?.trim() ?? '')
+    .filter(Boolean);
+  for (const pref of tokens) {
+    if (isLocale(pref)) redirect(`/${pref}`);
+    const base = pref.split('-')[0] ?? '';
+    if (isLocale(base)) redirect(`/${base}`);
+  }
 
-export default function Home() {
-  const { t, i18n } = useTranslation('common');
-  const [currentLocale, setCurrentLocale] = useState('fr');
-
-  useEffect(() => {
-    if (i18n.language) {
-      setCurrentLocale(i18n.language);
-    }
-  }, [i18n.language]);
-
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
-          <LanguageSelector currentLocale={currentLocale} />
-        </div>
-
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-
-        <h1>{t('welcome')}</h1>
-        <p>{t('description')}</p>
-
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <Button appName="web">{t('actions.save')}</Button>
-        </div>
-      </main>
-    </div>
-  );
+  // 3. Fallback
+  redirect(`/${i18n.defaultLocale}`);
 }

@@ -50,12 +50,3 @@ function extractTranslationKeys() {
 
   return Array.from(translationKeys).sort();
 }
-
-console.log('🔍 Extracting translation keys from source code...');
-
-const extractedKeys = extractTranslationKeys();
-
-console.log(`📄 Found ${extractedKeys.length} unique translation keys:`);
-extractedKeys.forEach((key) => console.log(`   - ${key}`));
-
-console.log('\n💡 Run "pnpm i18n:validate" to check translations completeness');

@@ -1,80 +1,59 @@
 'use client';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { i18n, localeCookieName, Locale } from '../../lib/i18n/settings';
 
-import { useState } from 'react';
-import { useTranslation } from '../../lib/i18n/i18n-client';
-import { languages, Language } from '../../lib/i18n/config';
-
-interface LanguageSelectorProps {
-  currentLocale: string;
+function isLocale(value: string): value is Locale {
+  return (i18n.locales as readonly string[]).includes(value);
 }
+import { useI18n } from './use-i18n';
 
-const languageNames: Record<Language, string> = {
-  fr: 'Français',
-  en: 'English',
-  es: 'Español',
-  pt: 'Português',
-};
+export function LanguageSelector() {
+  const { locale } = useI18n();
+  const router = useRouter();
+  const pathname = usePathname();
 
-export default function LanguageSelector({
-  currentLocale,
-}: LanguageSelectorProps) {
-  const { i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
+  // On mount, if a stored preference exists and differs from current URL locale, navigate.
+  useEffect(() => {
+    try {
+      const stored =
+        (typeof window !== 'undefined' &&
+          window.localStorage.getItem(localeCookieName)) ||
+        undefined;
+      if (stored && stored !== locale && isLocale(stored)) {
+        const segments = pathname.split('/');
+        segments[1] = stored;
+        router.replace(segments.join('/'));
+      }
+    } catch {
+      // ignore
+    }
+  }, [locale, pathname, router]);
 
-  const handleLanguageChange = (locale: Language) => {
-    i18n.changeLanguage(locale);
-    setIsOpen(false);
-  };
-
-  const currentLanguage = languages.includes(currentLocale as Language)
-    ? (currentLocale as Language)
-    : 'fr';
+  function onChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const nextLocale = e.target.value as Locale;
+    // Persist preference (client-side only)
+    try {
+      document.cookie = `${localeCookieName}=${nextLocale};path=/;max-age=${60 * 60 * 24 * 365}`; // 1 year
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(localeCookieName, nextLocale);
+      }
+    } catch {
+      // ignore persistence errors
+    }
+    // Replace the locale segment (assumes /{locale}/...)
+    const segments = pathname.split('/');
+    segments[1] = nextLocale; // first segment after leading slash
+    router.push(segments.join('/'));
+  }
 
   return (
-    <div className="relative inline-block text-left">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        type="button"
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-      >
-        {languageNames[currentLanguage]}
-        <svg
-          className="w-5 h-5 ml-2 -mr-1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            fillRule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
-
-      {isOpen && (
-        <div className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white border border-gray-300 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1" role="menu" aria-orientation="vertical">
-            {languages.map((locale) => (
-              <button
-                key={locale}
-                onClick={() => handleLanguageChange(locale)}
-                className={`${
-                  locale === currentLanguage
-                    ? 'bg-gray-100 text-gray-900'
-                    : 'text-gray-700'
-                } block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 hover:text-gray-900`}
-                role="menuitem"
-              >
-                {languageNames[locale]}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+    <select onChange={onChange} value={locale} style={{ padding: 4 }}>
+      {i18n.locales.map((l) => (
+        <option key={l} value={l}>
+          {l.toUpperCase()}
+        </option>
+      ))}
+    </select>
   );
 }

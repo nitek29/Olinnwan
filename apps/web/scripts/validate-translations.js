@@ -56,17 +56,12 @@ function validateTranslations() {
   let hasErrors = false;
 
   for (const namespaceFile of namespaceFiles) {
-    const namespace = namespaceFile.replace('.json', '');
-    console.log(`\n📋 Validating namespace: ${namespace}`);
-
     // Load default locale keys
     const defaultFilePath = path.join(defaultLocalePath, namespaceFile);
     const defaultTranslations = JSON.parse(
       fs.readFileSync(defaultFilePath, 'utf8')
     );
     const defaultKeys = extractKeys(defaultTranslations);
-
-    console.log(`   Found ${defaultKeys.length} keys in ${DEFAULT_LOCALE}`);
 
     // Check each locale
     for (const locale of LOCALES) {
@@ -101,10 +96,6 @@ function validateTranslations() {
       if (extraKeys.length > 0) {
         console.warn(`   ⚠️  ${locale}: Extra keys: ${extraKeys.join(', ')}`);
       }
-
-      if (missingKeys.length === 0 && extraKeys.length === 0) {
-        console.log(`   ✅ ${locale}: Complete (${localeKeys.length} keys)`);
-      }
     }
   }
 
@@ -113,7 +104,6 @@ function validateTranslations() {
     console.error('Please fix the missing translations before committing.');
     return false;
   } else {
-    console.log('\n✅ All translations are complete!');
     return true;
   }
 }

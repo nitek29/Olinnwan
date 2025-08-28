@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import ClientI18nProvider from '../components/i18n/client-provider';
 import './globals.css';
 
 const geistSans = localFont({
@@ -17,24 +16,15 @@ export const metadata: Metadata = {
   description: 'Modern web application for Dofus by Ankama Games',
 };
 
-// Function to detect language from request headers
-function detectLanguage(): string {
-  // In a real app, you'd want to detect from headers, cookies, etc.
-  // For now, we'll default to French
-  return 'fr';
-}
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  const lang = detectLanguage();
-
+}) {
   return (
-    <html lang={lang}>
+    <html lang="fr">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ClientI18nProvider locale={lang}>{children}</ClientI18nProvider>
+        {children}
       </body>
     </html>
   );
