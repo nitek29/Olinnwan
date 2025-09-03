@@ -1,7 +1,7 @@
 'use client';
 import { createContext } from 'react';
-import type { Dictionary } from '../../lib/i18n/get-dictionary';
-import { Locale } from '../../lib/i18n/settings';
+import type { Dictionary } from '@/lib/i18n/get-dictionary';
+import { Locale } from '@/lib/i18n/settings';
 
 export interface I18nValue {
   locale: Locale;
