@@ -1,7 +1,7 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { i18n, localeCookieName, Locale } from '../../lib/i18n/settings';
+import { i18n, localeCookieName, Locale } from '@/lib/i18n/settings';
 
 function isLocale(value: string): value is Locale {
   return (i18n.locales as readonly string[]).includes(value);
