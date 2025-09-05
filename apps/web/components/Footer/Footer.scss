@@ -1,0 +1,41 @@
+footer {
+  width: 100vw;
+  margin-top: 2%;
+  padding: 2%;
+  text-align: left;
+  background-color: var(--secondary-bg);
+  display: flex;
+  justify-content: space-evenly;
+
+  .footer_container {
+    width: 30%;
+
+    h3 {
+      width: 80%;
+      border-bottom: 2px solid var(--primary-text);
+    }
+
+    ul {
+      margin: 2.5% 0% 0% 0%;
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin: 1% 0%;
+      }
+
+      a {
+        color: var(--primary-text);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:visited {
+        color: var(--primary-text);
+      }
+    }
+  }
+}

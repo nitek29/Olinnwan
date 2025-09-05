@@ -1,0 +1,79 @@
+@use "../../assets/styles/variables";
+
+header {
+  width: 100vw;
+  margin: 1% 1% 2% 1%;
+  display: flex;
+  align-items: center;
+
+  .logo {
+    width: 17.5%;
+    height: 15vh;
+    margin-right: 2.5%;
+    background-image: url("/public/dofusgroup_logo_plein.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      background-color: var(--primary-bg);
+    }
+  }
+
+  nav {
+    width: 82.5%;
+    padding: 1% 1% 1% 2%;
+    background-color: var(--secondary-bg);
+    font-size: 1.2rem;
+    font-weight: var(--semi-bold);
+    display: flex;
+    align-items: center;
+    border-radius: 1.5rem 0rem 0rem 1.5rem;
+
+    ul {
+      width: 100%;
+      margin: 0%;
+      padding: 0;
+      font-size: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      list-style: none;
+      gap: 2%;
+
+      li {
+        width: 25%;
+        padding: 2% 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+
+        .nav_link {
+          width: 80%;
+        }
+
+        .admin-link {
+          a {
+            color: #e74c3c !important;
+            font-weight: bold;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 2px rgba(231, 76, 60, 0.3));
+          }
+        }
+
+        button {
+          width: 80%;
+          padding: 7.5% 12.5%;
+        }
+      }
+    }
+  }
+}

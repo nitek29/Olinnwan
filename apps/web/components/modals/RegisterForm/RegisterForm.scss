@@ -1,0 +1,122 @@
+.register_modal {
+  width: 100%;
+
+  &_title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-text);
+
+    @media (max-width: 480px) {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  &_form {
+    margin: 0;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+      gap: 0.75rem;
+    }
+
+    &_label {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      span {
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: var(--primary-text);
+
+        @media (max-width: 480px) {
+          font-size: 0.9rem;
+        }
+      }
+
+      &_input {
+        padding: 0.75rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        background-color: #ffffff;
+        color: #333333;
+
+        @media (max-width: 480px) {
+          padding: 0.6rem;
+          font-size: 0.95rem;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 74, 144, 226), 0.2);
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+    }
+
+    &_button {
+      margin-top: 1rem;
+      padding: 0.875rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      width: 100%;
+      max-width: 300px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+
+      @media (max-width: 480px) {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        max-width: none;
+      }
+
+      &:hover {
+        background-color: var(--primary-color-dark);
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+  }
+
+  &_error {
+    color: var(--error-color, #dc2626);
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    background-color: rgba(220, 38, 38, 0.1);
+    border-radius: 0.375rem;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+
+    @media (max-width: 480px) {
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+  }
+}

@@ -1,0 +1,106 @@
+@use "../../assets/styles/variables";
+
+.character_card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  &_name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: var(--semi-bold);
+    color: var(--primary-text);
+  }
+
+  &_default {
+    color: var(--accent-color);
+    font-size: 1rem;
+  }
+
+  &_actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &_action {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+
+    &.edit:hover {
+      background-color: rgba(var(--primary-color-rgb), 0.1);
+    }
+
+    &.delete:hover {
+      background-color: rgba(var(--error-color-rgb), 0.1);
+    }
+  }
+
+  &_details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &_info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &_label {
+    font-size: 0.85rem;
+    font-weight: var(--semi-bold);
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &_value {
+    font-size: 1rem;
+    color: var(--primary-text);
+  }
+
+  &_stuff {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+
+    &_text {
+      margin: 0.5rem 0 0 0;
+      padding: 0.75rem;
+      background-color: var(--background-color);
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--primary-text);
+    }
+  }
+}

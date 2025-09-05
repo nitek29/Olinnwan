@@ -1,0 +1,108 @@
+@use "../../../assets/styles/variables";
+
+.character_modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+
+  &_title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: var(--semi-bold);
+    color: var(--primary-text);
+    margin: 0;
+  }
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &_label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &.checkbox {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      span {
+        font-weight: var(--semi-bold);
+        color: var(--primary-text);
+        font-size: 0.9rem;
+      }
+
+      &_input,
+      &_checkbox {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        background-color: white;
+        color: var(--input-text);
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+        }
+      }
+
+      &_checkbox {
+        width: auto;
+        padding: 0;
+        margin-right: 0.5rem;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 60px;
+      }
+    }
+
+    &_error {
+      color: var(--error-color);
+      font-size: 0.9rem;
+      text-align: center;
+      margin: 0;
+      background-color: rgba(var(--error-color-rgb), 0.1);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    &_submit {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: var(--semi-bold);
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: var(--primary-color-hover);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
