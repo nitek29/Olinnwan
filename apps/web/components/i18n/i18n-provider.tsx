@@ -1,8 +1,8 @@
 'use client';
 import { ReactNode, useMemo } from 'react';
 import { I18nContext } from './i18n-context';
-import type { Dictionary } from '../../lib/i18n/get-dictionary';
-import { Locale } from '../../lib/i18n/settings';
+import type { Dictionary } from '@/lib/i18n/get-dictionary';
+import { Locale } from '@/lib/i18n/settings';
 
 function translate(dictionary: Dictionary, key: string): string {
   const parts = key.split('.');

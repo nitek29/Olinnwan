@@ -1,6 +1,6 @@
 import { headers, cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { i18n, localeCookieName, Locale } from '../lib/i18n/settings';
+import { i18n, localeCookieName, Locale } from '@/lib/i18n/settings';
 
 function isLocale(value: string): value is Locale {
   return (i18n.locales as readonly string[]).includes(value);

@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
-import { useI18n } from '../i18n/use-i18n';
-import { LanguageSelector } from '../i18n/language-selector';
+import { useI18n } from '@/components/i18n/use-i18n';
+import { LanguageSelector } from '@/components/i18n/language-selector';
 
 export function Header() {
   const { t, locale } = useI18n();

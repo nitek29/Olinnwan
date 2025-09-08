@@ -1,16 +1,19 @@
-import { getDictionary } from '../../../lib/i18n/get-dictionary';
-import { Locale } from '../../../lib/i18n/settings';
+import { getDictionary, Dictionary } from '@/lib/i18n/get-dictionary';
+import { Locale } from '@/lib/i18n/settings';
 
 export default async function SettingsPage({
   params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
-  const dict = await getDictionary(params.locale);
+  const { locale } = await params;
+  const dict = await getDictionary(locale);
+  const navigation = dict.navigation as Dictionary;
+  const common = dict.common as Dictionary;
   return (
     <div style={{ padding: 32 }}>
-      <h1>{dict.navigation?.settings as string}</h1>
-      <p>{dict.common?.loading as string}</p>
+      <h1>{navigation?.settings as string}</h1>
+      <p>{common?.loading as string}</p>
     </div>
   );
 }
