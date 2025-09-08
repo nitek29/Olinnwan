@@ -1,9 +1,9 @@
-## 🤔 Pourquoi ce changement ?
+## 🤔 Why this change?
 
-## 🎯 Qu'est-ce que ça fait ?
+## 🎯 What does it do?
 
-## 🧪 Comment tester ?
+## 🧪 How to test?
 
-## 📸 Captures d'écran
+## 📸 Screenshots
 
-## ✏️ Notes supplémentaires
+## ✏️ Additional Notes
